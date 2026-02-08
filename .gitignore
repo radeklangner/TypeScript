@@ -1,0 +1,11 @@
+# Node.js
+node_modules/
+package-lock.json
+
+# Typescript
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
