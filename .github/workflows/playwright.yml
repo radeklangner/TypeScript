@@ -28,17 +28,23 @@ jobs:
         working-directory: TypeScript/projekt
         run: chmod +x ./node_modules/.bin/cucumber-js
 
-      # --- OPTYMALIZACJA: CACHE DLA PRZEGLĄDAREK ---
+      # --- KLUCZOWA ZMIANA: CACHE I TYLKO CHROMIUM ---
       - name: Cache Playwright Browsers
         id: playwright-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('TypeScript/projekt/package-lock.json') }}
+          key: ${{ runner.os }}-playwright-chromium-${{ hashFiles('TypeScript/projekt/package-lock.json') }}
 
-      - name: Install Playwright Chromium & Deps
+      - name: Install Playwright Dependencies
         working-directory: TypeScript/projekt
-        run: npx playwright install chromium --with-deps
+        # Instalujemy tylko biblioteki systemowe pod chromium (bez dociągania paczek firefoxa)
+        run: npx playwright install-deps chromium
+
+      - name: Install Playwright Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        working-directory: TypeScript/projekt
+        run: npx playwright install chromium
       # --------------------------------------------
 
       - name: Run Cucumber Tests
