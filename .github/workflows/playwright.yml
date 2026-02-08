@@ -20,11 +20,13 @@ jobs:
         working-directory: TypeScript/projekt
         run: npm install
 
+      - name: Fix Playwright Permissions
+        working-directory: TypeScript/projekt
+        run: chmod +x ./node_modules/.bin/playwright
+
       - name: Install Playwright Browsers & Deps
         working-directory: TypeScript/projekt
-        run:|
-          chmod +x ./node_modules/.bin/playwright
-          npx playwright install --with-deps
+        run: npx playwright install --with-deps
 
       - name: Run Cucumber Tests
         working-directory: TypeScript/projekt
