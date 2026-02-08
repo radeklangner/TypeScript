@@ -1,7 +1,5 @@
 name: Playwright Cucumber Tests
-on:
-  push:
-    branches: [ main, master ]
+on: [push]
 
 jobs:
   test:
@@ -14,7 +12,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Install dependencies (ONLY IN PROJECT)
         working-directory: TypeScript/projekt
         run: npm install
 
