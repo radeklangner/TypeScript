@@ -18,12 +18,16 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        # Wchodzimy do folderu TypeScript, bo tam jest package.json
         run: npm install
         working-directory: TypeScript
 
+      - name: Fix permissions (opcjonalne, jeśli npx zawodzi)
+        run: chmod +x ./node_modules/.bin/playwright
+        working-directory: TypeScript
+
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        # Używamy npm exec zamiast npx dla lepszej kontroli
+        run: npm exec playwright install --with-deps
         working-directory: TypeScript
 
       - name: Run Cucumber Tests
