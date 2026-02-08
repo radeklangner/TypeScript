@@ -6,26 +6,18 @@ let page: Page;
 
 console.log("=== LADUJE LOGIN.STEPS.TS ===");
 
-Given('Otwieram strone {string}', async function (url: string) {
-  browser = await chromium.launch({ headless: false });
-  page = await browser.newPage();
-  await page.goto(url);
-  process.stdout.write(`STEP: Otwieram strone ${url}\n`);
+Given('I open the page {string}', async function (url: string) {
+  // Twój kod otwierający stronę
 });
 
-When('Wpisuje {string} w pole numeru', async function (value: string) {
-  await page.locator('#input-number').fill(value);
-  process.stdout.write(`STEP: Wpisuje "${value}" w pole numeru\n`);
+When('I type {string} into the number field', async function (number: string) {
+  // Twój kod wpisujący numer
 });
 
-When('Czekam {int} sekund', async function (sekundy: number) {
-  process.stdout.write(`Czekam ${sekundy} sekund...\n`);
-  await new Promise(resolve => setTimeout(resolve, sekundy * 1000));
+When('I wait 5 seconds', async function () {
+  await new Promise(resolve => setTimeout(resolve, 5000));
 });
 
-Then('Zamykam przegladarke', async function () {
-  if (browser) {
-    await browser.close();
-    process.stdout.write('STEP: Przegladarka zamknieta\n');
-  }
+Then('I close the browser', async function () {
+  // Twój kod zamykający
 });
