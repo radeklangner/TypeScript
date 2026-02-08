@@ -1,0 +1,16 @@
+{
+  "name": "playwright-cucumber-demo",
+  "version": "1.0.0",
+  "description": "Testy automatyczne Playwright + Cucumber",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js --require-module ts-node/register --require './features/steps/login.steps.ts' --format progress"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.6.0",
+    "@types/node": "^20.19.33",
+    "playwright": "^1.43.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.3"
+  }
+}
