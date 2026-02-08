@@ -25,6 +25,9 @@ jobs:
       - name: Run Cucumber Tests
         run: npm test
 
-      - name: Debug - List files
+- name: Debug - Gdzie sa testy?
         working-directory: TypeScript/projekt
-        run: ls -R
+        run: echo "Aktualny folder:"
+             pwd
+             echo "Zawartosc folderu features:"
+             ls -R features
