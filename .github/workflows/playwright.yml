@@ -4,6 +4,7 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -12,15 +13,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: TypeScript/projekt/package-lock.json
 
       - name: Install dependencies
-        # Ścieżka musi być DOKŁADNIE taka jak w Twoim logu:
         working-directory: TypeScript/projekt
         run: npm install
 
-      - name: Install Playwright Browsers
+      - name: Install Playwright Browsers & Deps
         working-directory: TypeScript/projekt
-        run: npx playwright install --with-deps
+        run:|
+          chmod +x ./node_modules/.bin/playwright
+          npx playwright install --with-deps
 
       - name: Run Cucumber Tests
         working-directory: TypeScript/projekt
