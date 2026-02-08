@@ -2,18 +2,13 @@ name: Playwright Cucumber Tests
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-
-defaults:
-  run:
-    working-directory: projekt  # <--- Tu wpisz nazwę folderu, w którym masz package.json
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -21,12 +16,16 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
+        # Musimy wejść do podfolderu 'projekt'
         run: npm install
+        working-directory: projekt
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+        working-directory: projekt
 
       - name: Run Cucumber Tests
         run: npm test
+        working-directory: projekt
         env:
           CI: true
