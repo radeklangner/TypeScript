@@ -4,7 +4,7 @@
   "description": "Testy automatyczne Playwright + Cucumber",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js --require-module ts-node/register --require './features/steps/login.steps.ts' --format progress"
+    "test": "cucumber-js features/*.feature --require-module ts-node/register --require features/steps/*.ts --format progress"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^12.6.0",
