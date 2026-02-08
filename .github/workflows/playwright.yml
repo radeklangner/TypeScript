@@ -2,6 +2,8 @@ name: Playwright Cucumber Tests
 on:
   push:
     branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
   test:
@@ -16,16 +18,16 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        # Musimy wejść do podfolderu 'projekt'
+        # Wchodzimy do folderu TypeScript, bo tam jest package.json
         run: npm install
-        working-directory: projekt
+        working-directory: TypeScript
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-        working-directory: projekt
+        working-directory: TypeScript
 
       - name: Run Cucumber Tests
         run: npm test
-        working-directory: projekt
+        working-directory: TypeScript
         env:
           CI: true
