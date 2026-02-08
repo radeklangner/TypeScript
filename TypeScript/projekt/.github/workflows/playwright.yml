@@ -12,7 +12,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies (ONLY IN PROJECT)
+      - name: Install dependencies
+        # TUTAJ BYŁ BŁĄD - musimy wejść głębiej do folderu
         working-directory: TypeScript/projekt
         run: npm install
 
