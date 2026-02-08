@@ -30,8 +30,10 @@ jobs:
         run: npm exec playwright install --with-deps
         working-directory: TypeScript
 
+      - name: Debug - Lista plikow
+        working-directory: TypeScript/projekt
+        run: find . -maxdepth 3 -not -path '*/.*'
+
       - name: Run Cucumber Tests
+        working-directory: TypeScript/projekt
         run: npm test
-        working-directory: TypeScript
-        env:
-          CI: true
