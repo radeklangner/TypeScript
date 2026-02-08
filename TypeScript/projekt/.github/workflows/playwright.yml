@@ -13,14 +13,14 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        # TUTAJ BYŁ BŁĄD - musimy wejść głębiej do folderu
-        working-directory: TypeScript/projekt
+        # Kluczowy moment: wchodzimy dokładnie tam, gdzie jest package.json
+        working-directory: ./TypeScript/projekt
         run: npm install
 
       - name: Install Playwright Browsers
-        working-directory: TypeScript/projekt
+        working-directory: ./TypeScript/projekt
         run: npx playwright install --with-deps
 
       - name: Run Cucumber Tests
-        working-directory: TypeScript/projekt
+        working-directory: ./TypeScript/projekt
         run: npm test
