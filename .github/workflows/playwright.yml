@@ -28,9 +28,18 @@ jobs:
         working-directory: TypeScript/projekt
         run: chmod +x ./node_modules/.bin/cucumber-js
 
-      - name: Install Playwright Browsers & Deps
+      # --- OPTYMALIZACJA: CACHE DLA PRZEGLĄDAREK ---
+      - name: Cache Playwright Browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('TypeScript/projekt/package-lock.json') }}
+
+      - name: Install Playwright Chromium & Deps
         working-directory: TypeScript/projekt
-        run: npx playwright install --with-deps
+        run: npx playwright install chromium --with-deps
+      # --------------------------------------------
 
       - name: Run Cucumber Tests
         working-directory: TypeScript/projekt
