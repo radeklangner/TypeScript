@@ -4,14 +4,8 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
-    
-    # To jest klucz do sukcesu:
-    defaults:
-      run:
-        working-directory: TypeScript/projekt
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -20,10 +14,14 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
+        # Wchodzimy o dwa poziomy głębiej, tak jak masz w repo
+        working-directory: TypeScript/projekt
         run: npm install
 
       - name: Install Playwright Browsers
+        working-directory: TypeScript/projekt
         run: npx playwright install --with-deps
 
       - name: Run Cucumber Tests
+        working-directory: TypeScript/projekt
         run: npm test
