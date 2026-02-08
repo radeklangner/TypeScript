@@ -37,3 +37,4 @@ When('I wait 5 seconds', async function () {
 Then('I close the browser', async function () {
   console.log(`[STEP] Zamykam przeglądarkę.`);
   await browser.close();
+});
