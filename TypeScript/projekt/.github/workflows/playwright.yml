@@ -4,6 +4,11 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        # TO JEST KLUCZ: Muszą być dwa poziomy TypeScript
+        working-directory: TypeScript/TypeScript/projekt
+
     steps:
       - uses: actions/checkout@v4
 
@@ -13,14 +18,10 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        # Kluczowy moment: wchodzimy dokładnie tam, gdzie jest package.json
-        working-directory: ./TypeScript/projekt
         run: npm install
 
       - name: Install Playwright Browsers
-        working-directory: ./TypeScript/projekt
         run: npx playwright install --with-deps
 
       - name: Run Cucumber Tests
-        working-directory: ./TypeScript/projekt
         run: npm test
