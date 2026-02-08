@@ -4,37 +4,31 @@ import { chromium, Browser, Page } from 'playwright';
 let browser: Browser;
 let page: Page;
 
-// Ustawiamy timeout na 60 sekund
+// Ustawiamy timeout na 60 sekund, bo GitHub Actions czasem działa wolniej
 setDefaultTimeout(60 * 1000);
 
 Given('I open the page {string}', async function (url: string) {
-  console.log(`\n[STEP] Otwieram przeglądarkę i przechodzę do: ${url}`);
-  
-  browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext();
-  page = await context.newPage();
-  
-  await page.goto(url);
-  console.log(`[INFO] Strona ${url} załadowana pomyślnie.`);
+    console.log(`>>> KROK: Otwieram stronę: ${url}`);
+    // Uruchomienie przeglądarki w trybie headless (wymagane na GitHub Actions)
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext();
+    page = await context.newPage();
+    await page.goto(url);
 });
 
 When('I type {string} into the number field', async function (number: string) {
-  console.log(`[STEP] Próbuję wpisać numer: ${number}`);
-  
-  // Selektor input[type="number"] jest poprawny dla strony expandtesting
-  await page.fill('input[type="number"]', number);
-  
-  const val = await page.inputValue('input[type="number"]');
-  console.log(`[INFO] Wpisano wartość: ${val}`);
+    console.log(`>>> KROK: Wpisuję numer: ${number}`);
+    // Czekamy na selektor, aby upewnić się, że strona się załadowała
+    await page.waitForSelector('input[type="number"]');
+    await page.fill('input[type="number"]', number);
 });
 
-When('I wait 5 seconds', async function () {
-  console.log(`[STEP] Czekam 5 sekund...`);
-  await page.waitForTimeout(5000);
-  console.log(`[INFO] Odczekano.`);
+When('I wait {int} seconds', async function (seconds: number) {
+    console.log(`>>> KROK: Czekam ${seconds} sekund...`);
+    await page.waitForTimeout(seconds * 1000);
 });
 
 Then('I close the browser', async function () {
-  console.log(`[STEP] Zamykam przeglądarkę.`);
-  await browser.close();
+    console.log(`>>> KROK: Zamykam przeglądarkę`);
+    await browser.close();
 });
