@@ -4,13 +4,15 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+    
+    # To jest klucz do sukcesu:
     defaults:
       run:
-        # TO JEST KLUCZ: Muszą być dwa poziomy TypeScript
-        working-directory: TypeScript/TypeScript/projekt
+        working-directory: TypeScript/projekt
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
